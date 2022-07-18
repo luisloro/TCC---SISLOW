@@ -1,7 +1,21 @@
+import Cabecalho from "./componentes/cabecalho"
+import CadCliente from "./componentes/cad.cliente"
+import Menu from "./componentes/menu"
 
 function App() {
   return (
-    <h1>Olá Mundo</h1>
+    <>
+      <Cabecalho />
+      <section id="menu">
+          <div className="barra-menu">
+            <Menu />
+          </div>
+        </section>
+      <main>
+        
+        <CadCliente />
+      </main>
+    </>
   )
 }
 

@@ -1,0 +1,21 @@
+.card{
+    background-color: #B0C4DE;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.tabela-menu{
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+th{
+    border: 1px solid black;
+    width: 3%;
+    margin-left: 40px;
+    font-size: 16px;
+}

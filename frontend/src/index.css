@@ -13,9 +13,12 @@ html {
   color: #000;
 }
 
-a,
-a:hover,
-a:visited {
-  color: unset;
-  text-decoration: none;
+.barra-menu {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#menu {
+  padding: 40px 10px;
 }
