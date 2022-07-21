@@ -1,6 +1,9 @@
-import Cabecalho from "./componentes/cabecalho"
-import CadCliente from "./componentes/cad.cliente"
-import Menu from "./componentes/menu"
+import Cabecalho from "./componentes/cabecalho";
+import CadCliente from "./componentes/cad.cliente";
+import Menu from "./componentes/menu";
+import {Route,Routes,Link} from "react-router-dom";
+import CadProduto from "./componentes/cad.produto";
+import Rota from "./componentes/Rotas";
 
 function App() {
   return (
@@ -8,12 +11,12 @@ function App() {
       <Cabecalho />
       <section id="menu">
           <div className="barra-menu">
-            <Menu />
+            <Menu/>
           </div>
         </section>
       <main>
+        <Rota/>
         
-        <CadCliente />
       </main>
     </>
   )
