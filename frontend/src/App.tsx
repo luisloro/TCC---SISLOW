@@ -4,6 +4,7 @@ import Menu from "./componentes/menu";
 import {Route,Routes,Link} from "react-router-dom";
 import CadProduto from "./componentes/cad.produto";
 import Rota from "./componentes/Rotas";
+import {useForm} from  'react-hook-form';
 
 function App() {
   return (
