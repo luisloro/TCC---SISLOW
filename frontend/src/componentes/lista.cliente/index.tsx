@@ -1,46 +1,36 @@
+
+import CadCliente from "../cad.cliente";
 import {Route,Routes,Link} from "react-router-dom";
-import CadProduto from "../cad.produto";
-import {useForm} from  'react-hook-form';
-import axios from 'axios';
+import {useParams} from "react-router-dom";
 import { BASE_URL } from "../request";
+import axios from 'axios';
 import { useEffect, useState } from "react";
 import { Cliente } from "../models/cliente";
+import {useForm} from  'react-hook-form';
 
-
-function CadCliente(){
-
-    const {register, handleSubmit} = useForm();
-
-
+function ListaCliente(){
     const [lista,setLista] = useState<Cliente[]>([]);
+    const {register, handleSubmit} = useForm()
 
-    const [nomeCliente,setNome] = useState('');
-    const [foneCliente,setFone] = useState('');
-    const [cpfCliente,setCPF] = useState('');
-
-
-    const cadCliente = (dados: any)=> axios.post(
-        `${BASE_URL}/cadcliente?nome=${nomeCliente}&fone=${foneCliente}&cpf=${cpfCliente}`).then(response => {
+    const consultaCliente = (dados: any)=> axios.get(
+        `${BASE_URL}/cliente`).then(response => {
             console.log(response.data);
+            setLista(response.data);
+            
         });
+
     return(
         
-            
+
             <div>
-                <form onSubmit={handleSubmit(cadCliente)} >
-                    <label >Nome do Cliente</label>
-                    <input type="text" value={nomeCliente} onChange={(e)=>setNome(e.target.value)}/>
+                <h1>Consulta de Clientes</h1>
 
-                    <label >Fone</label>
-                    <input type="text" value={foneCliente} onChange={(e)=>setFone(e.target.value)}/>
+                <form onSubmit={handleSubmit(consultaCliente)} >
 
-                    <label >CPF</label>
-                    <input type="text" value={cpfCliente} onChange={(e)=>setCPF(e.target.value)} />
-
-                    
-
-                    <button type="submit">Enviar</button>
+        
+                    <button type="submit">Consultar</button>
                 </form>
+
 
                 <table>
                     <thead>
@@ -53,8 +43,10 @@ function CadCliente(){
                             lista.map(cliente=>{
                                 return(
                             <tr key={cliente.id}>
+                            <td>{cliente.id}</td>
                             <td>{cliente.nome}</td>
                             <td>teste</td>
+                            <td><Link to={`/cademp/${cliente.id}`}> Novo Emprestimo </Link></td>
                             <td><Link to={`/editcli/${cliente.id}`}> Edita Cliente </Link></td>
                         </tr>
                                 )
@@ -66,12 +58,10 @@ function CadCliente(){
                         
                 </table>
             </div>
-
-            
         
 
     )
 }
 
-export default CadCliente;
+export default ListaCliente;
 
