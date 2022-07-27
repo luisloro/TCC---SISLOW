@@ -27,7 +27,7 @@ public class Cliente implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nome;
-	private String email;
+	private String fone;
 	private Integer cpf;
 	
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
@@ -55,13 +55,6 @@ public class Cliente implements Serializable{
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public Integer getCpf() {
 		return cpf;
@@ -69,6 +62,16 @@ public class Cliente implements Serializable{
 
 	public void setCpf(Integer cpf) {
 		this.cpf = cpf;
+	}
+	
+	
+
+	public String getFone() {
+		return fone;
+	}
+
+	public void setFone(String fone) {
+		this.fone = fone;
 	}
 
 	public List<Emprestimo> getEmprestimo() {

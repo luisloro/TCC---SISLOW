@@ -28,12 +28,12 @@ public class ClienteController {
 	@Autowired
 	ClienteRepository repository;
 
-	@GetMapping("/clientes")
+	@GetMapping("/cliente")
 	public List<Cliente> getClietes() {
 		return repository.findAll();
 	}
 
-	
+	/*
 	 @GetMapping("/cliente") 
 	 public List<Cliente> getCliete(){ 
 	  List clientes = new ArrayList<Cliente>();
@@ -41,14 +41,16 @@ public class ClienteController {
 	 clientes = repository.findAll();
 	  
 	  return clientes; 
-	  }
+	  }*/
 	 
-
+	
 	@GetMapping("/cliente/{id}")
 	public ResponseEntity<Cliente> clienteById(@PathVariable Long id) {
 		Cliente cliente = repository.findById(id).get();
 		return ResponseEntity.ok(cliente);
 	}
+	
+	
 
 	@Transactional
 	@GetMapping("/cliente/emprestimos/{id}")
@@ -70,13 +72,32 @@ public class ClienteController {
 	@Transactional
 	@PostMapping("/cadcliente")
 	public ResponseEntity<Cliente> cadastraCliente(@RequestParam(value = "nome") String nome,
-			@RequestParam(value = "email") String email, @RequestParam(value = "cpf") String cpfcliente) {
+			@RequestParam(value = "fone") String fone, @RequestParam(value = "cpf") String cpfcliente) {
 
 		Integer cpf = Integer.parseInt(cpfcliente);
 
 		Cliente cliente = new Cliente();
 		cliente.setNome(nome);
-		cliente.setEmail(email);
+		cliente.setFone(fone);
+		cliente.setCpf(cpf);
+		repository.save(cliente);
+		return ResponseEntity.ok(cliente);
+	}
+	
+	
+	@Transactional
+	@PostMapping("/atucli")
+	public ResponseEntity<Cliente> atualizaCliente(@RequestParam(value = "nome") String nome,
+			@RequestParam(value = "fone") String fone,
+			@RequestParam(value = "cpf") String cpfcliente,
+			@RequestParam(value = "id") String idCLiente) {
+
+		Integer cpf = Integer.parseInt(cpfcliente);
+		Long id = Long.parseLong(idCLiente);
+
+		Cliente cliente = repository.findById(id).get();
+		cliente.setNome(nome);
+		cliente.setFone(fone);
 		cliente.setCpf(cpf);
 		repository.save(cliente);
 		return ResponseEntity.ok(cliente);

@@ -27,11 +27,12 @@ public class EquipamentoController {
 	@Autowired
 	EquipamentoRepository equipamentoRepository;
 	
+	/*
 	@Transactional
 	@GetMapping("/equipamento")
 	public List<Equipamento> getEmprestimos(){
 		return equipamentoRepository.findAll();
-	}
+	}*/
 	
 	@PostMapping("/cadequip")
 	public Equipamento saveEmprestimo(@RequestBody Equipamento equipamento) {

@@ -1,6 +1,7 @@
 package com.aplicacao.sislow.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -28,6 +29,8 @@ public class Emprestimo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
 	private Float valor;
+	private LocalDate datainicio;
+	private LocalDate datafim;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="cliente_id" )
@@ -73,6 +76,22 @@ public class Emprestimo implements Serializable {
 
 	public void setEquipamento(Set<Equipamento> equipamento) {
 		this.equipamento = equipamento;
+	}
+
+	public LocalDate getDatainicio() {
+		return datainicio;
+	}
+
+	public void setDatainicio(LocalDate datainicio) {
+		this.datainicio = datainicio;
+	}
+
+	public LocalDate getDatafim() {
+		return datafim;
+	}
+
+	public void setDatafim(LocalDate datafim) {
+		this.datafim = datafim;
 	}
 	
 	
