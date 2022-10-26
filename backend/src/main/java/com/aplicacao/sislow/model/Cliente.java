@@ -28,15 +28,39 @@ public class Cliente implements Serializable{
 	private Long id;
 	private String nome;
 	private String fone;
-	private Integer cpf;
+	private String senha;
+	private String cpf;
+	private String cnpj;
+	private String ie;
+	private String email;
+	private Boolean tipo;
+	
+	
 	
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<Emprestimo> emprestimo;
 	
 	
-	public Cliente() {
+	
+	
+public Cliente(String nome,String fone,String senha,String cpf, Boolean tipo) {
+	this.nome=nome;
+	this.fone=fone;
+	this.senha=senha;
+	this.cpf=cpf;
+	this.tipo=tipo;
 		
+	}
+public Cliente(String nome,String fone,String senha,String cpf,String cnpj,String ie,String email, Boolean tipo) {
+	this.nome=nome;
+	this.fone=fone;
+	this.senha=senha;
+	this.cpf=cpf;
+	this.tipo=tipo;
+	this.cnpj=cnpj;
+	this.email=email;
+	this.ie=ie;
 	}
 
 	public Long getId() {
@@ -54,16 +78,6 @@ public class Cliente implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-
-	public Integer getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(Integer cpf) {
-		this.cpf = cpf;
-	}
-	
 	
 
 	public String getFone() {
@@ -81,7 +95,55 @@ public class Cliente implements Serializable{
 	public void setEmprestimo(List<Emprestimo> emprestimo) {
 		this.emprestimo = emprestimo;
 	}
-	
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getIe() {
+		return ie;
+	}
+
+	public void setIe(String ie) {
+		this.ie = ie;
+	}
+
+	public Boolean getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Boolean tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	
 }
 

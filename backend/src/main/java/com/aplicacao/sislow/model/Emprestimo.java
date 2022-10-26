@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +32,12 @@ public class Emprestimo implements Serializable {
 	private Float valor;
 	private LocalDate datainicio;
 	private LocalDate datafim;
+	private Boolean emprestado;
+	
+	@Transient
+	private String dataInicioFormatada;
+	@Transient
+	private String dataFimFormatada;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="cliente_id" )
@@ -42,9 +49,7 @@ public class Emprestimo implements Serializable {
 	inverseJoinColumns = @JoinColumn(name = "equipamento_fk"))
 	private Set<Equipamento> equipamento;
 	
-	public Emprestimo() {
-		
-	}
+	
 
 	public Long getId() {
 		return id;
@@ -93,11 +98,32 @@ public class Emprestimo implements Serializable {
 	public void setDatafim(LocalDate datafim) {
 		this.datafim = datafim;
 	}
-	
-	
 
+	public Boolean getEmprestado() {
+		return emprestado;
+	}
 
-	
+	public void setEmprestado(Boolean emprestado) {
+		this.emprestado = emprestado;
+	}
+
+	@Transient
+	public String getDataInicioFormatada() {
+		return dataInicioFormatada;
+	}
+
+	public void setDataInicioFormatada(String dataInicioFormatada) {
+		this.dataInicioFormatada = dataInicioFormatada;
+	}
+
+	@Transient
+	public String getDataFimFormatada() {
+		return dataFimFormatada;
+	}
+
+	public void setDataFimFormatada(String dataFimFormatada) {
+		this.dataFimFormatada = dataFimFormatada;
+	}
 	
 
 }

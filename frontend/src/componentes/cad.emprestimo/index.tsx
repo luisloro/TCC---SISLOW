@@ -1,6 +1,6 @@
 
 import CadCliente from "../cad.cliente";
-import {Route,Routes,Link} from "react-router-dom";
+import {Route,Routes,Link,useNavigate} from "react-router-dom";
 import {useParams} from "react-router-dom";
 import { BASE_URL } from "../request";
 import axios from 'axios';
@@ -12,6 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Equipamento } from "../models/equipamentol";
 
 function CadastraEmprestimo(){
+    const navigate = useNavigate()
     const {register, handleSubmit} = useForm()
     const {id} = useParams();
     const [lista,setLista] = useState<Equipamento[]>([]);
@@ -24,22 +25,46 @@ function CadastraEmprestimo(){
     const [nomeCliente,setNome] = useState('');
     const [foneCliente,setFone] = useState('');
     const [cpfCliente,setCPF] = useState('');
-
+    const [valor,setValor] = useState('');
+    const [msg,setMsg] = useState('');
+    const [modelo,setModelo] = useState('');
     const cadastra = (dados: any)=> {
-                const dinicio = datainicio.toISOString().slice(0,10);
-                const dfim = datafim.toISOString().slice(0,10);
+                const dinicio = inicio.toISOString().slice(0,10);
+                const dfim = fim.toISOString().slice(0,10);
                 console.log(dfim)
                 axios.post(
-                    `${BASE_URL}/cademprestimo?valor=80&idCliente=1&datainicio=${dinicio}&datafim=${dfim}`).then(response => {
-                        console.log(response.data);
+                    `${BASE_URL}/cademprestimo?valor=${valor}&idCliente=${id}&datainicio=${dinicio}&datafim=${dfim}`).then(response => {
+                        const menssagem = response.data;
+                        if(menssagem == "Emprestimo Realizado")
+                        {
+                            setValor('');
+                            setInicio(datainicio);
+                            navigate('/listacli');
+                            setListaTemp([]);
+                        }           
+                            alert(menssagem);
                         
                     });
+                    setValor('');
+                     setInicio(datainicio);
+                     
+                     setListaTemp([]);
+                     
+                    
+
     }
 
-    const pucharEquipamentos=()=>axios.get(
-        `${BASE_URL}/equipamento`).then(response => {
+    const buscaEquipamento = (dados: any)=> axios.get(
+        `${BASE_URL}/buscaEquipamentoPorModelo?modelo=${modelo}`).then(response => {
             setLista(response.data);
-            setListaTemp([]);
+            setModelo('');
+            
+        });
+
+    const pucharEquipamentos=()=>axios.get(
+        `${BASE_URL}/itenstemp`).then(response => {
+            setLista(response.data);
+            
 
 });
     
@@ -49,7 +74,7 @@ function CadastraEmprestimo(){
            
 
             axios.get(
-                `${BASE_URL}/listatemp`).then(response => {
+                `${BASE_URL}/listaequipamentos`).then(response => {
                     
                     setListaTemp(response.data);
                     
@@ -63,6 +88,27 @@ function CadastraEmprestimo(){
                 
         });
 
+        const removeLista  = async (idequip: number)=> await 
+        axios.post(
+            `${BASE_URL}/voltaequip?idEquipamento=${idequip}`).then(response => {
+                console.log(idequip);
+                setLista(response.data);
+
+            
+            axios.post(
+            `${BASE_URL}/removeequiptemp?idEquipamento=${idequip}`).then(response => {
+                
+            });
+                axios.get(
+                    `${BASE_URL}/listaequipamentos`).then(response => {
+                        
+                        setListaTemp(response.data);
+                        
+                    });
+            
+        });
+           
+
     useEffect(()=>{
 
         axios.get(
@@ -71,20 +117,23 @@ function CadastraEmprestimo(){
                 setNome(response.data.nome);
                 setCPF(response.data.cpf);
                 setFone(response.data.fone);
-
+                
                 
             });
 
-            axios.get(
-                `${BASE_URL}/equipamento2`).then(response => {
-                  
-                    setLista(response.data);
-                    
-                });
+            
+                axios.get(
+                    `${BASE_URL}/listaequipamentos`).then(response => {
+                        
+                        setListaTemp(response.data);
+                        
+                    });
+
+                
 
                
         
-    },[listatemp])
+    },[lista,valor])
 
 
 
@@ -101,11 +150,22 @@ function CadastraEmprestimo(){
                     <label >{foneCliente}</label>
                     <label >-------</label>
                     <label >{cpfCliente}</label>
+
+                    <label >Valor Emprestimo: </label>
+                    <input type="number" value={valor} onChange={(e)=>setValor(e.target.value)}/>
                     <button type="submit">Enviar</button>
                     
                 </form>
 
                 <button onClick={pucharEquipamentos}>Listar Todos</button>
+
+                <form onSubmit={handleSubmit(buscaEquipamento)} >
+                    <label >Busca por Modelo do Equipamento</label>
+                    <input type="text" value={modelo} onChange={(e)=>setModelo(e.target.value)}/>
+
+
+                    <button type="submit">Buscar</button>
+                </form>
 
                 <div className="dsmeta-form-control-container">
                         <DatePicker
@@ -127,7 +187,8 @@ function CadastraEmprestimo(){
                     <table>
                     <thead>
                     <tr>
-                            <th>Teste</th>
+                            <th>Equipamentos disponiveis</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -137,7 +198,8 @@ function CadastraEmprestimo(){
                             <tr key={equipamento.id}>
                             <td>{equipamento.id}</td>
                             <td>{equipamento.modelo}</td>
-                            <td><button onClick={()=>adicionaLista(equipamento.id)}>Add</button></td>
+                            <td><button onClick={()=>adicionaLista(equipamento.id)}>Adiciona</button></td>
+                            
                             
                         </tr>
                                 )
@@ -163,7 +225,7 @@ function CadastraEmprestimo(){
                             <tr >
                             <td>{equipamento.id}</td>
                             <td>{equipamento.modelo}</td>
-                            
+                            <td><button onClick={()=>removeLista(equipamento.id)}>Remove</button></td>
                         </tr>
                                 )
                             })

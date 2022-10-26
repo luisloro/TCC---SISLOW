@@ -1,5 +1,9 @@
 export type Cliente = { 
     id: number;
     nome: string;
-    cpf:number;
+    cpf:string;
+    cnpj:string;
+    ie:string;
+    tipo:boolean;
+    email:string;
 }

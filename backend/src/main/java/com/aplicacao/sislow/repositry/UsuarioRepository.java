@@ -7,15 +7,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.aplicacao.sislow.model.Cliente;
 import com.aplicacao.sislow.model.Emprestimo;
 import com.aplicacao.sislow.model.Usuario;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Long>{
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-	//@Query("SELECT obj FROM Cliente obj WHERE obj.documento = :doc and obj.senha = :senha")
-	//Cliente encontraCliente(Long doc, String senha);
+	List<Usuario> findByName(String name);
 	
-
+	@Query("SELECT obj FROM Usuario obj WHERE obj.name = :name and obj.password = :password")
+	Usuario encontraUsuario(String name, String password);
+	
 }

@@ -5,7 +5,7 @@ import { BASE_URL } from "../request";
 import { useEffect, useState } from "react";
 import { Cliente } from "../models/cliente";
 
-function CadCliente(){
+function CadClienteJurudico(){
 
     const {register, handleSubmit} = useForm();
 
@@ -17,23 +17,23 @@ function CadCliente(){
     const [senha,setSenha] = useState('');
     const [msg,setMsg] = useState('');
     const [email,setEmail] = useState('');
-   
+    const [ie,setIE] = useState('');
 
     const cadCliente = (dados: any)=> axios.post(
-        `${BASE_URL}/cadcliente?nome=${nomeCliente}&fone=${foneCliente}&cpf=${cpf}&senha=${senha}&email=${email}`).then(response => {
+        `${BASE_URL}/cadclientejuridico?nome=${nomeCliente}&fone=${foneCliente}&cnpj=${cnpj}&senha=${senha}&email=${email}&ie=${ie}`).then(response => {
             setNome('');
             setDoc('');
             setFone('');
             setSenha('');
             setEmail('');
+            setIE('');
             setMsg(response.data);
             
 
         });
 
         
-        const cpf = docCliente.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4");
-        
+        const cnpj = docCliente.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,"$1.$2.$3/$4-$5");
         
         useEffect(()=>{
 
@@ -52,8 +52,11 @@ function CadCliente(){
                     <label >Fone</label>
                     <input type="text"   value={foneCliente} onChange={(e)=>setFone(e.target.value)}/>
 
-                    <label >CPF: </label>
-                    <input type="text" placeholder="123.456.789.90" value={cpf} pattern={'[,0-9,][@-#-$]+$'} minLength={11} maxLength={11} onChange={(e)=>setDoc(e.target.value)} />
+                    <label >CNPJ: </label>
+                    <input type="text" placeholder="12.345.567/0001-99" value={cnpj} pattern={'[,0-9,][@-#-$]+$'} minLength={14} maxLength={14} onChange={(e)=>setDoc(e.target.value)} />
+
+                    <label >Inscrição Estadual: </label>
+                    <input type="text"   value={ie} pattern={'[,0-9,][@-#-$]+$'} minLength={11} maxLength={11} onChange={(e)=>setIE(e.target.value)}/>
 
                     <label >Email:</label>
                     <input type="text"   value={email} onChange={(e)=>setEmail(e.target.value)}/>
@@ -73,4 +76,4 @@ function CadCliente(){
     )
 }
 
-export default CadCliente;
+export default CadClienteJurudico;
