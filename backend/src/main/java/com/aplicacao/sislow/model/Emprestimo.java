@@ -31,6 +31,7 @@ public class Emprestimo implements Serializable {
 	private Float valor;
 	private LocalDate datainicio;
 	private LocalDate datafim;
+	private Boolean emprestado;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="cliente_id" )
@@ -92,6 +93,14 @@ public class Emprestimo implements Serializable {
 
 	public void setDatafim(LocalDate datafim) {
 		this.datafim = datafim;
+	}
+
+	public Boolean getEmprestado() {
+		return emprestado;
+	}
+
+	public void setEmprestado(Boolean emprestado) {
+		this.emprestado = emprestado;
 	}
 	
 	

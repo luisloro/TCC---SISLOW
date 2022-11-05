@@ -12,12 +12,34 @@ function ListaCliente(){
     const [lista,setLista] = useState<Cliente[]>([]);
     const {register, handleSubmit} = useForm()
 
+    const [nomeCliente,setNome] = useState('');
+
     const consultaCliente = (dados: any)=> axios.get(
         `${BASE_URL}/cliente`).then(response => {
             console.log(response.data);
             setLista(response.data);
             
         });
+
+        const buscaCliente = (dados: any)=> axios.get(
+            `${BASE_URL}/buscaCliente?nome=${nomeCliente}`).then(response => {
+                console.log(response.data);
+                setLista(response.data);
+                
+            });
+            useEffect(()=>{
+
+                axios.get(
+                    `${BASE_URL}/equipamento`).then(response => {
+                        
+            
+            });
+                        
+        
+                       
+                
+            })
+            
 
     return(
         
@@ -28,7 +50,15 @@ function ListaCliente(){
                 <form onSubmit={handleSubmit(consultaCliente)} >
 
         
-                    <button type="submit">Consultar</button>
+                    <button type="submit">Consultar Todos</button>
+                </form>
+
+                <form onSubmit={handleSubmit(buscaCliente)} >
+                    <label >Nome do Cliente</label>
+                    <input type="text" value={nomeCliente} onChange={(e)=>setNome(e.target.value)}/>
+
+
+                    <button type="submit">Buscar</button>
                 </form>
 
 
@@ -48,6 +78,7 @@ function ListaCliente(){
                             <td>teste</td>
                             <td><Link to={`/cademp/${cliente.id}`}> Novo Emprestimo </Link></td>
                             <td><Link to={`/editcli/${cliente.id}`}> Edita Cliente </Link></td>
+                            <td><Link to={`/empcli/${cliente.id}`}> Emprestimos do Cliente </Link></td>
                         </tr>
                                 )
                             })

@@ -30,11 +30,34 @@ public class Equipamento implements Serializable {
 	private String modelo;
 	private String marca;
 	private String tipo;
+	private Boolean emprestado;
+	private String serial;
+
+	public String getSerial() {
+		return serial;
+	}
+
+	public void setSerial(String serial) {
+		this.serial = serial;
+	}
 
 	@ManyToMany(mappedBy = "equipamento", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<Emprestimo> emprestimo;
-
+	
+	
+	public Equipamento(String modelo,String marca,String tipo,String serial) {
+		this.modelo=modelo;
+		this.marca=marca;
+		this.tipo=tipo;
+		this.serial=serial;
+		this.emprestado=false;
+	}
+	
+	public Equipamento() {
+		
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -73,6 +96,14 @@ public class Equipamento implements Serializable {
 
 	public void setEmprestimo(Set<Emprestimo> emprestimo) {
 		this.emprestimo = emprestimo;
+	}
+
+	public Boolean getEmprestado() {
+		return emprestado;
+	}
+
+	public void setEmprestado(Boolean emprestado) {
+		this.emprestado = emprestado;
 	}
 	
 	

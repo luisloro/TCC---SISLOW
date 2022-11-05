@@ -16,11 +16,17 @@ function EditCliente(){
 
     const [nomeCliente,setNome] = useState('');
     const [foneCliente,setFone] = useState('');
-    const [cpfCliente,setCPF] = useState('');
+    const [docCliente,setDoc] = useState('');
+    const [senha,setSenha] = useState('');
 
     const atualizaCliente = (dados: any)=> axios.post(
-        `${BASE_URL}/atucli?nome=${nomeCliente}&fone=${foneCliente}&cpf=${cpfCliente}&id=${id}`).then(response => {
-            console.log(response.data);
+        `${BASE_URL}/atucli?nome=${nomeCliente}&fone=${foneCliente}&documento=${docCliente}&senha=${senha}&id=${id}`).then(response => {
+            
+            setNome('');
+            setDoc('');
+            setFone('');
+            setDoc('');
+            setSenha('');
         });
 
     useEffect(()=>{
@@ -29,8 +35,9 @@ function EditCliente(){
             `${BASE_URL}/cliente/${id}`).then(response => {
                 console.log(response.data.nome);
                 setNome(response.data.nome);
-                setCPF(response.data.cpf);
+                setDoc(response.data.documento);
                 setFone(response.data.fone);
+                setSenha(response.data.senha);
             });
     },[])
 
@@ -49,8 +56,11 @@ function EditCliente(){
                     <label >Fone</label>
                     <input type="text" value={foneCliente} onChange={(e)=>setFone(e.target.value)}/>
 
-                    <label >CPF</label>
-                    <input type="text" value={cpfCliente} onChange={(e)=>setCPF(e.target.value)} />
+                    <label >Documento</label>
+                    <input type="number" value={docCliente} onChange={(e)=>setDoc(e.target.value)} />
+
+                    <label >Senha</label>
+                    <input type="password" value={senha} onChange={(e)=>setSenha(e.target.value)}/>
 
                     
 

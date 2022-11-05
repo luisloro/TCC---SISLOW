@@ -1,5 +1,4 @@
 import {Route,Routes,Link} from "react-router-dom";
-import CadProduto from "../cad.produto";
 import {useForm} from  'react-hook-form';
 import axios from 'axios';
 import { BASE_URL } from "../request";
@@ -16,13 +15,28 @@ function CadCliente(){
 
     const [nomeCliente,setNome] = useState('');
     const [foneCliente,setFone] = useState('');
-    const [cpfCliente,setCPF] = useState('');
+    const [docCliente,setDoc] = useState('');
+    const [senha,setSenha] = useState('');
+    const [msg,setMsg] = useState('');
 
 
     const cadCliente = (dados: any)=> axios.post(
-        `${BASE_URL}/cadcliente?nome=${nomeCliente}&fone=${foneCliente}&cpf=${cpfCliente}`).then(response => {
+        `${BASE_URL}/cadcliente?nome=${nomeCliente}&fone=${foneCliente}&documento=${docCliente}&senha=${senha}`).then(response => {
+            setNome('');
+            setDoc('');
+            setFone('');
+            setDoc('');
+            setSenha('');
             console.log(response.data);
+            setMsg(response.data);
+
         });
+
+
+        useEffect(()=>{
+
+
+        },[msg])
     return(
         
             
@@ -34,37 +48,16 @@ function CadCliente(){
                     <label >Fone</label>
                     <input type="text" value={foneCliente} onChange={(e)=>setFone(e.target.value)}/>
 
-                    <label >CPF</label>
-                    <input type="text" value={cpfCliente} onChange={(e)=>setCPF(e.target.value)} />
+                    <label >Documento</label>
+                    <input type="number" value={docCliente} onChange={(e)=>setDoc(e.target.value)} />
 
-                    
+                    <label >Senha</label>
+                    <input type="password" value={senha} onChange={(e)=>setSenha(e.target.value)}/>
 
                     <button type="submit">Enviar</button>
                 </form>
-
-                <table>
-                    <thead>
-                    <tr>
-                            <th>Teste</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            lista.map(cliente=>{
-                                return(
-                            <tr key={cliente.id}>
-                            <td>{cliente.nome}</td>
-                            <td>teste</td>
-                            <td><Link to={`/editcli/${cliente.id}`}> Edita Cliente </Link></td>
-                        </tr>
-                                )
-                            })
-                        }
-                    
-                    
-                    </tbody>
-                        
-                </table>
+                <label >{msg}</label>
+                
             </div>
 
             

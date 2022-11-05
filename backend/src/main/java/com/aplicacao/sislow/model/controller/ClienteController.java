@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aplicacao.sislow.model.Cliente;
 import com.aplicacao.sislow.model.Emprestimo;
+import com.aplicacao.sislow.model.Equipamento;
+import com.aplicacao.sislow.model.Usuario;
 import com.aplicacao.sislow.repositry.ClienteRepository;
 
 import lombok.AllArgsConstructor;
@@ -69,39 +71,9 @@ public class ClienteController {
 		return repository.save(cliente);
 	}
 
-	@Transactional
-	@PostMapping("/cadcliente")
-	public ResponseEntity<Cliente> cadastraCliente(@RequestParam(value = "nome") String nome,
-			@RequestParam(value = "fone") String fone, @RequestParam(value = "cpf") String cpfcliente) {
 
-		Integer cpf = Integer.parseInt(cpfcliente);
-
-		Cliente cliente = new Cliente();
-		cliente.setNome(nome);
-		cliente.setFone(fone);
-		cliente.setCpf(cpf);
-		repository.save(cliente);
-		return ResponseEntity.ok(cliente);
-	}
 	
 	
-	@Transactional
-	@PostMapping("/atucli")
-	public ResponseEntity<Cliente> atualizaCliente(@RequestParam(value = "nome") String nome,
-			@RequestParam(value = "fone") String fone,
-			@RequestParam(value = "cpf") String cpfcliente,
-			@RequestParam(value = "id") String idCLiente) {
-
-		Integer cpf = Integer.parseInt(cpfcliente);
-		Long id = Long.parseLong(idCLiente);
-
-		Cliente cliente = repository.findById(id).get();
-		cliente.setNome(nome);
-		cliente.setFone(fone);
-		cliente.setCpf(cpf);
-		repository.save(cliente);
-		return ResponseEntity.ok(cliente);
-	}
 
 	@DeleteMapping("/cliente/{id}")
 	public void deletaCliente(@PathVariable Long id) {
@@ -113,12 +85,26 @@ public class ClienteController {
 		List<Cliente> cliente = new ArrayList<Cliente>();
 		List<Cliente> clientes = new ArrayList<Cliente>();
 		cliente = repository.findAll();
+		String nm = nome.toLowerCase();
 		for (Cliente cli : cliente) {
-			if (cli.getNome().toLowerCase().contains(nome)) {
+			if (cli.getNome().toLowerCase().contains(nm)) {
 				clientes.add(cli);
 			}
 		}
 		return clientes;
 	}
+	
+	@GetMapping("/testemenssagem")
+	public String retornaMenssagem() {
+		
+		String msg = "Teste Menssagem";
+		
+		return msg;
+	}
+	
+	
+	
+	
+	
 
 }
