@@ -1,0 +1,37 @@
+package com.aplicacao.sislow.model;
+
+import java.io.Serializable;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Equipamento implements Serializable {
+	private static final long serialVersion = 1l;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	Long id;
+	
+	private String modelo;
+	private String marca;
+	private String tipo;
+
+	@ManyToMany(mappedBy = "equipamento", fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<Emprestimo> emprestimo;
+}

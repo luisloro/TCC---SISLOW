@@ -1,0 +1,304 @@
+package com.aplicacao.sislow.model.controller;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.aplicacao.sislow.model.Cliente;
+import com.aplicacao.sislow.model.Emprestimo;
+import com.aplicacao.sislow.model.Equipamento;
+import com.aplicacao.sislow.repositry.ClienteRepository;
+import com.aplicacao.sislow.repositry.EmprestimoRepository;
+import com.aplicacao.sislow.repositry.EquipamentoRepository;
+
+import lombok.AllArgsConstructor;
+
+@RestController
+@AllArgsConstructor
+@Transactional
+public class EmprestimoController {
+	
+
+	@Autowired
+	EmprestimoRepository repository;
+	
+	@Autowired
+	ClienteRepository clienterepository;
+	
+	@Autowired
+	EquipamentoRepository equipamentoRepository;
+	
+	Set<Equipamento> listaEquipamento = new HashSet<Equipamento>();
+	private List<Equipamento> listatemp = new ArrayList<Equipamento>();
+	private List<Emprestimo> emprestimosabertos = new ArrayList<Emprestimo>();
+	
+	@GetMapping("/emprestimo/{id}")
+	public ResponseEntity<Emprestimo> emprestimoById(@PathVariable Long id) {
+		Emprestimo emprestimo = repository.findById(id).get();
+		return ResponseEntity.ok(emprestimo);
+	}
+	/*
+	@Transactional
+	@GetMapping("/equipamento")
+	public List<Equipamento> getEquipamentos(){
+		listatemp= equipamentoRepository.findAll();
+		listaEquipamento.clear();
+		return listatemp;
+	}*/
+	@Transactional
+	@GetMapping("/equipamento")
+	public List<Equipamento> getEquipamentos(){
+		Boolean estado = false;
+		listatemp= equipamentoRepository.findByEmprestado(estado);
+		listaEquipamento.clear();
+		return listatemp;
+	}
+	
+	@GetMapping("/listaequipamentos")
+	public  ResponseEntity<Set<Equipamento>> listatemp(){
+		return ResponseEntity.ok(listaEquipamento);
+	}
+	
+	@PostMapping("/addequip")
+	public void adicionaEquipamento(
+			@RequestParam(value="idEquipamento") String idEquipamento){
+			Long id = Long.parseLong(idEquipamento);
+			Equipamento equipamento = equipamentoRepository.findById(id).get();
+			listaEquipamento.add(equipamento);
+	}
+	
+	@PostMapping("/removeequiptemp")
+	public void removeEquipamentoTemp(
+			@RequestParam(value="idEquipamento") String idEquipamento){
+		Long id = Long.parseLong(idEquipamento);
+		for(Equipamento equip :listaEquipamento) {
+			if(equip.getId().equals(idEquipamento)) {
+				listaEquipamento.remove(idEquipamento);
+			}
+		}
+		
+	}
+	
+	@Transactional
+	@PostMapping("/voltaequip")
+	public List<Equipamento> voltaEquipamento(
+			@RequestParam(value="id") String idEquipamento){
+		Long id = Long.parseLong(idEquipamento);
+		Equipamento equipamento = equipamentoRepository.findById(id).get();
+		for(Equipamento equip :listatemp ) {
+			if(equip.getId().equals(id)) {
+				listatemp.add(equip);
+				return listatemp;
+			}
+		}
+		return listatemp;
+	}
+	@Transactional
+	@GetMapping("/emprestimosabertos")
+	public List<Emprestimo> emprestimosAbertos(
+			@RequestParam(value="datainicio")String datainicio,
+			@RequestParam(value="datafim")String datafim){
+		Boolean estado = true;
+		LocalDate inicio = LocalDate.parse(datainicio);
+		LocalDate fim = LocalDate.parse(datafim);
+		emprestimosabertos = repository.findByEmprestado(inicio, fim,estado);
+		return emprestimosabertos;
+	}
+	
+	@Transactional
+	@GetMapping("/emprestimospordata")
+	public List<Emprestimo> emprestimosPorData(
+			@RequestParam(value="datainicio")String datainicio,
+			@RequestParam(value="datafim")String datafim){
+		
+		LocalDate inicio = LocalDate.parse(datainicio);
+		LocalDate fim = LocalDate.parse(datafim);
+		
+		
+		
+		return repository.findEmprestimos(inicio, fim);
+	}
+	
+	
+	@Transactional
+	@GetMapping("/itenstemp")
+	public List<Equipamento> getEquipamentos2(){
+		return listatemp;
+	}
+	
+	@Transactional
+	@PostMapping("/removeequip")
+	public List<Equipamento> removeEquipamento(
+			@RequestParam(value="id") String idEquipamento){
+		Long id = Long.parseLong(idEquipamento);
+		Equipamento equipamento = equipamentoRepository.findById(id).get();
+		for(Equipamento equip :listatemp ) {
+			if(equip.getId().equals(id)) {
+				listatemp.remove(equip);
+				return listatemp;
+			}
+		}
+		
+		return listatemp;
+	}
+	
+	@Transactional
+	@GetMapping("/emprestimo")
+	public List<Emprestimo> getEmprestimos(){
+		return repository.findAll();
+	}
+	
+	@PostMapping("/cademp")
+	public Emprestimo saveEmprestimo(@RequestBody Emprestimo emprestimo) {
+		return repository.save(emprestimo);
+	}
+	
+	
+	@Transactional
+	@PostMapping("/cademprestimo")
+	public ResponseEntity<String> cadastraEmprestimo(
+		@RequestParam(value="idCliente") String idCliente,
+		@RequestParam(value="valor")String valoremprestimo,
+		@RequestParam(value="datainicio")String datainicio,
+		@RequestParam(value="datafim")String datafim
+			) {
+		Float valor = Float.parseFloat(valoremprestimo);
+		Long id = Long.parseLong(idCliente);
+		//Long  equipamentoId = Long.parseLong(idEquipamento);
+		LocalDate inicio = LocalDate.parse(datainicio);
+		LocalDate fim = LocalDate.parse(datafim);
+		String msg = new String();
+		msg = "Emprestimo Realizado";
+		if(listaEquipamento.isEmpty()) {
+			msg = "Lista de equipamentos vazia";
+			return ResponseEntity.ok(msg);
+		}
+		Cliente cliente= clienterepository.findById(id).get();
+		//Equipamento equip = equipamentoRepository.findById(equipamentoId).get();
+		//Set<Equipamento> equipamento = new HashSet<Equipamento>();
+		//equipamento.add(equip);
+		Emprestimo novoemprestimo = new Emprestimo();
+		
+		novoemprestimo.setValor(valor);
+		novoemprestimo.setCliente(cliente);
+		//novoemprestimo.setEquipamento(equipamento);
+		novoemprestimo.setEquipamento(listaEquipamento);
+		novoemprestimo.setDatainicio(inicio);
+		novoemprestimo.setDatafim(fim);
+		novoemprestimo.setEmprestado(true);
+	    repository.save(novoemprestimo);
+	    for(Equipamento equip:listaEquipamento) {
+	    	equip.setEmprestado(true);
+	    	equipamentoRepository.save(equip);
+	    }
+	    listaEquipamento = new HashSet<Equipamento>();
+	    return ResponseEntity.ok(msg);
+	}
+	
+	
+	@PostMapping("/cad/{valor}/{id}")
+	public  ResponseEntity<Emprestimo> cadastraEmprestimoe(@PathVariable Float valor,@PathVariable Long id) {
+		
+		Cliente cliente= clienterepository.findById(id).get();
+		Emprestimo novoemprestimo = new Emprestimo();
+		novoemprestimo.setValor(valor);
+		novoemprestimo.setCliente(cliente);
+	    repository.save(novoemprestimo);
+		return ResponseEntity.ok(novoemprestimo);
+	}
+	
+	
+	
+
+	
+	@PostMapping("/devolveemp")
+	public ResponseEntity<Emprestimo> devolveemp(
+			@RequestParam(value="id") String id) {
+		Long idemp = Long.parseLong(id);
+		
+		Emprestimo emprestimo = repository.findById(idemp).get();
+		Set<Equipamento> equipamentos = emprestimo.getEquipamento();
+		
+		for(Equipamento equip:equipamentos) {
+	    	equip.setEmprestado(false);
+	    	equipamentoRepository.save(equip);
+	    }
+		
+		emprestimo.setEmprestado(false);
+		repository.save(emprestimo);
+		return ResponseEntity.ok(emprestimo);
+	}
+	
+	@PostMapping("/emprestaequip")
+	public void emprestaequip(@RequestParam(value="idEquipamento") String idEquipamento){
+		Long id = Long.parseLong(idEquipamento);
+		Equipamento equipamento = equipamentoRepository.findById(id).get();
+		equipamento.setEmprestado(true);
+		equipamentoRepository.save(equipamento);
+	}
+	
+	@PostMapping("/devolveequip")
+	public void devolveequip(@RequestParam(value="idEquipamento") String idEquipamento){
+		Long id = Long.parseLong(idEquipamento);
+		Equipamento equipamento = equipamentoRepository.findById(id).get();
+		equipamento.setEmprestado(false);
+		equipamentoRepository.save(equipamento);
+	}
+	
+	@GetMapping("/recuperacli/{id}")
+	public Cliente recuperaCliente(@PathVariable Long id) {
+		
+		Emprestimo emprestimo = repository.findById(id).get();
+		Cliente cliente = emprestimo.getCliente();
+		return cliente;
+	}
+	
+	@GetMapping("/recuperaequips/{id}")
+	public Set<Equipamento> recuperaEquipamentos(@PathVariable Long id) {
+		
+		Emprestimo emprestimo = repository.findById(id).get();
+		Set<Equipamento> equips = emprestimo.getEquipamento();
+		return equips;
+	}
+	
+	@Transactional
+	@GetMapping("/emprestimosatrasados")
+	public List<Emprestimo> getEmprestimosAtrasados(
+			@RequestParam(value="data")String data){
+		
+		LocalDate datahj = LocalDate.parse(data);
+		
+		List<Emprestimo> emprestimosAtrasados = repository.findEmprestimosAtrasados(datahj);
+		
+		return emprestimosAtrasados;
+	}
+	
+	@Transactional
+	@GetMapping("/emprestimoscliente")
+	public List<Emprestimo> emprestimosDoCliente(
+			@RequestParam(value="id")String id){
+		
+		Long idcliente = Long.parseLong(id);
+		
+		Cliente cliente = clienterepository.findById(idcliente).get();
+		
+		List<Emprestimo> emprestimos = cliente.getEmprestimo();
+		
+		return emprestimos;
+	}
+	
+	
+}

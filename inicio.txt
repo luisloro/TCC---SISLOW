@@ -1,6 +1,0 @@
-(eclipse) SislowApplication.java
-(navegador) http://localhost:8080/health
-(cmd) npm run dev
-(navegador) http://127.0.0.1:5173/
-(VSCode) FronteEnd
-(navegador) http://localhost:8080/h2-console/login.do?jsessionid=f7059bac9c890de1d535f7ec2d6580f9

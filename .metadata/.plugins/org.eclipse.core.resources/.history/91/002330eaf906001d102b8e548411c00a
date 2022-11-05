@@ -1,0 +1,5 @@
+package com.aplicacao.sislow.repositry;
+
+public interface ClienteRepository {
+
+}

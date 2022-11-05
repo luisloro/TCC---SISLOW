@@ -1,0 +1,5 @@
+package com.aplicacao.sislow.model.controller;
+
+public class EmprestimoController {
+
+}
