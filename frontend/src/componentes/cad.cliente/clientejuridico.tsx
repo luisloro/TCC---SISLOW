@@ -19,6 +19,7 @@ function CadClienteJurudico(){
     const [email,setEmail] = useState('');
     const [ie,setIE] = useState('');
 
+<<<<<<< HEAD
     const validaCNPJ = function(cnpj) {
  
         cnpj = cnpj.replace(/[^\d]+/g,'');
@@ -79,6 +80,8 @@ function CadClienteJurudico(){
         }
     }
 
+=======
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
     const cadCliente = (dados: any)=> axios.post(
         `${BASE_URL}/cadclientejuridico?nome=${nomeCliente}&fone=${foneCliente}&cnpj=${cnpj}&senha=${senha}&email=${email}&ie=${ie}`).then(response => {
             setNome('');
@@ -92,6 +95,7 @@ function CadClienteJurudico(){
 
         });
 
+<<<<<<< HEAD
         const cnpj = docCliente.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,"$1.$2.$3/$4-$5");
         useEffect(()=>{
 
@@ -139,6 +143,49 @@ function CadClienteJurudico(){
             </form>
             <label >{msg}</label>
         </div>
+=======
+        
+        const cnpj = docCliente.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,"$1.$2.$3/$4-$5");
+        
+        useEffect(()=>{
+
+            
+        },[msg])
+
+       
+    return(
+        
+            
+            <div>
+                <form onSubmit={handleSubmit(cadCliente)} >
+                    <label >Nome do Cliente</label>
+                    <input type="text"  value={nomeCliente} onChange={(e)=>setNome(e.target.value)}/>
+
+                    <label >Fone</label>
+                    <input type="text"   value={foneCliente} onChange={(e)=>setFone(e.target.value)}/>
+
+                    <label >CNPJ: </label>
+                    <input type="text" placeholder="12.345.567/0001-99" value={cnpj} pattern={'[,0-9,][@-#-$]+$'} minLength={14} maxLength={14} onChange={(e)=>setDoc(e.target.value)} />
+
+                    <label >Inscrição Estadual: </label>
+                    <input type="text"   value={ie} pattern={'[,0-9,][@-#-$]+$'} minLength={11} maxLength={11} onChange={(e)=>setIE(e.target.value)}/>
+
+                    <label >Email:</label>
+                    <input type="text"   value={email} onChange={(e)=>setEmail(e.target.value)}/>
+
+                    <label >Senha</label>
+                    <input type="password" value={senha} onChange={(e)=>setSenha(e.target.value)}/>
+
+                    <button type="submit">Enviar</button>
+                </form>
+                <label >{msg}</label>
+                
+            </div>
+
+            
+        
+
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
     )
 }
 

@@ -19,6 +19,7 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long>{
 	@Query("SELECT obj FROM Emprestimo obj WHERE obj.datafim BETWEEN :max AND :min")
 	List<Emprestimo> findEmprestimos(LocalDate max, LocalDate min);
 	
+<<<<<<< HEAD
 	@Query("SELECT obj FROM Emprestimo obj WHERE obj.datafim < :data AND obj.emprestado = TRUE")
 	List<Emprestimo> findEmprestimosAtrasados(LocalDate data);
 	
@@ -30,4 +31,10 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long>{
 	
 	@Query("SELECT obj FROM Emprestimo obj WHERE obj.cliente.id = :idCliente AND  obj.datafim < :dataFim AND obj.emprestado = TRUE")
 	List<Emprestimo> findEmprestimosAtrasadosByCliente(Long idCliente, LocalDate dataFim);
+=======
+	@Query("SELECT obj FROM Emprestimo obj WHERE obj.datafim < :data")
+	List<Emprestimo> findEmprestimosAtrasados(LocalDate data);
+	
+
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 }

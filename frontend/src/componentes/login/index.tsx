@@ -2,7 +2,12 @@ import { useEffect, useState,useContext } from "react";
 import {useForm} from  'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
+<<<<<<< HEAD
 import { IoMdLogIn } from 'react-icons/io';
+=======
+
+
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 
 const TelaLogin = () =>{
 
@@ -15,18 +20,27 @@ const TelaLogin = () =>{
     const handleLogin = async () => {
         if (name && password) {
             const isLogged = await auth.signin(name, password);
+<<<<<<< HEAD
             console.log(isLogged);
             if (isLogged) {
                 navigate('/');
             } else {
                 alert("Usuário ou senha incorretos.");
                 navigate('/login');
+=======
+            if (isLogged) {
+                navigate('/');
+            } else {
+                navigate('/login');
+                alert("Não deu certo.");
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
             }
         }
     }
 
     
     return(
+<<<<<<< HEAD
         <div>
             <header>
                 <div className='topo'>
@@ -48,6 +62,21 @@ const TelaLogin = () =>{
                     </button>
                 </form>
             </div>
+=======
+        
+        <div>
+            
+        <form className="form" >
+        <label >Usuario</label>
+        <input type="text" value={name} onChange={(e)=>setName(e.target.value)}/>
+
+        <label >Senha</label>
+        <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+
+        <button type="submit" onClick={handleLogin}> Entrar</button>
+
+        </form>
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
         </div>
     )
 }

@@ -18,6 +18,7 @@ function CadCliente(){
     const [msg,setMsg] = useState('');
     const [email,setEmail] = useState('');
    
+<<<<<<< HEAD
     const validaCPF = function(strCPF) {
         var Soma;
         var Resto;
@@ -47,6 +48,8 @@ function CadCliente(){
             alert("CPF inválido");
         }
     }
+=======
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 
     const cadCliente = (dados: any)=> axios.post(
         `${BASE_URL}/cadcliente?nome=${nomeCliente}&fone=${foneCliente}&cpf=${cpf}&senha=${senha}&email=${email}`).then(response => {
@@ -71,6 +74,7 @@ function CadCliente(){
 
        
     return(
+<<<<<<< HEAD
         <div>
             <form onSubmit={handleSubmit(cadCliente)} >
                 <div className="row">
@@ -105,6 +109,36 @@ function CadCliente(){
             </form>
             <label >{msg}</label>
         </div>
+=======
+        
+            
+            <div>
+                <form onSubmit={handleSubmit(cadCliente)} >
+                    <label >Nome do Cliente</label>
+                    <input type="text"  value={nomeCliente} onChange={(e)=>setNome(e.target.value)}/>
+
+                    <label >Fone</label>
+                    <input type="text"   value={foneCliente} onChange={(e)=>setFone(e.target.value)}/>
+
+                    <label >CPF: </label>
+                    <input type="text" placeholder="123.456.789.90" value={cpf} pattern={'[,0-9,][@-#-$]+$'} minLength={11} maxLength={11} onChange={(e)=>setDoc(e.target.value)} />
+
+                    <label >Email:</label>
+                    <input type="text"   value={email} onChange={(e)=>setEmail(e.target.value)}/>
+
+                    <label >Senha</label>
+                    <input type="password" value={senha} onChange={(e)=>setSenha(e.target.value)}/>
+
+                    <button type="submit">Enviar</button>
+                </form>
+                <label >{msg}</label>
+                
+            </div>
+
+            
+        
+
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
     )
 }
 

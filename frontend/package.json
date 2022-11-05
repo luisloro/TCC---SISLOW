@@ -11,7 +11,10 @@
   "dependencies": {
     "@types/react-datepicker": "4.4.2",
     "axios": "0.27.2",
+<<<<<<< HEAD
     "bootstrap": "^5.2.1",
+=======
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-datepicker": "4.8.0",

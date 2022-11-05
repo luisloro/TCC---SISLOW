@@ -60,6 +60,7 @@ public class ClienteController {
 	@GetMapping("/cliente/emprestimos/{id}")
 	public List<Emprestimo> emprestimosDoCliente(@PathVariable Long id) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+<<<<<<< HEAD
 
 		Cliente cliente = repository.findById(id).get();
 		List<Emprestimo> emprestimos = new ArrayList<>();
@@ -67,6 +68,15 @@ public class ClienteController {
 			emprestimo.setDataInicioFormatada(formatter.format(emprestimo.getDatainicio()));
 			emprestimo.setDataFimFormatada(formatter.format(emprestimo.getDatafim()));
 
+=======
+		
+		Cliente cliente = repository.findById(id).get();
+		List<Emprestimo> emprestimos = new ArrayList<>();
+		for (Emprestimo emprestimo : cliente.getEmprestimo()) {
+			emprestimo.setDataInicioFormatada(formatter.format(emprestimo.getDatainicio()));
+			emprestimo.setDataFimFormatada(formatter.format(emprestimo.getDatafim()));
+			
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 			emprestimos.add(emprestimo);
 		}
 
@@ -84,11 +94,16 @@ public class ClienteController {
 			@RequestParam(value = "fone") String fone, @RequestParam(value = "cpf") String cpf,
 			@RequestParam(value = "senha") String senha, @RequestParam(value = "email") String email) {
 
+<<<<<<< HEAD
 		Cliente verifica = repository.encontraClienteCPF(cpf);
 		if (verifica instanceof Cliente) {
 			String msg = "CPF ja cadastrado no sistema";
 			return ResponseEntity.ok(msg);
 		}
+=======
+		
+		
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 
 		Cliente cliente = new Cliente();
 		cliente.setNome(nome);
@@ -100,7 +115,35 @@ public class ClienteController {
 		cliente.setTipo(false);
 		cliente.setEmail(email);
 		repository.save(cliente);
+<<<<<<< HEAD
 
+=======
+		
+		String msg = "Cliente Cadastrado com sucesso";
+		return ResponseEntity.ok(msg);
+	}
+	
+	@Transactional
+	@PostMapping("/cadclientejuridico")
+	public ResponseEntity<String> cadastraClienteJuridico(@RequestParam(value = "nome") String nome,
+			@RequestParam(value = "fone") String fone, @RequestParam(value = "cnpj") String cnpj,
+			@RequestParam(value = "senha") String senha, @RequestParam(value = "email") String email,@RequestParam(value = "ie") String ie) {
+
+		
+		
+
+		Cliente cliente = new Cliente();
+		cliente.setNome(nome);
+		cliente.setFone(fone);
+		cliente.setCpf(".");
+		cliente.setSenha(senha);
+		cliente.setCnpj(".");
+		cliente.setIe(ie);
+		cliente.setTipo(true);
+		cliente.setEmail(email);
+		repository.save(cliente);
+		
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 		String msg = "Cliente Cadastrado com sucesso";
 		return ResponseEntity.ok(msg);
 	}
@@ -136,12 +179,25 @@ public class ClienteController {
 	@Transactional
 	@PostMapping("/atucli")
 	public ResponseEntity<Cliente> atualizaCliente(@RequestParam(value = "nome") String nome,
+<<<<<<< HEAD
 			@RequestParam(value = "fone") String fone, @RequestParam(value = "cpf") String cpf,
 			@RequestParam(value = "id") String idCLiente, @RequestParam(value = "senha") String senha,
 			@RequestParam(value = "cnpj") String cnpj, @RequestParam(value = "ie") String ie,
 			@RequestParam(value = "email") String email) {
 
+=======
+			@RequestParam(value = "fone") String fone,
+			@RequestParam(value = "cpf") String cpf,
+			@RequestParam(value = "id") String idCLiente,
+			@RequestParam(value = "senha") String senha,
+			@RequestParam(value = "cnpj") String cnpj,
+			@RequestParam(value = "ie") String ie,
+			@RequestParam(value = "email") String email){
+
+		
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 		Long id = Long.parseLong(idCLiente);
+		
 
 		Cliente cliente = repository.findById(id).get();
 		cliente.setNome(nome);
@@ -173,6 +229,41 @@ public class ClienteController {
 		}
 		return clientes;
 	}
+	
+	@GetMapping("/testemenssagem")
+	public String retornaMenssagem() {
+		
+		String msg = "Teste Menssagem";
+		
+		return msg;
+	}
+	
+	
+	
+	/*
+	@GetMapping("/consultaemp")
+	public List<Emprestimo> buscaNome(@RequestParam(value = "documento") String documento,
+							@RequestParam (value = "senha") String senha
+			) {
+		
+		Long doc = Long.parseLong(documento);
+		
+		
+		Cliente clienteCadastrado = repository.encontraCliente(doc,senha);
+		Boolean estado = true;
+		Long id = clienteCadastrado.getId();
+		
+		List<Emprestimo> emprestimos = clienteCadastrado.getEmprestimo();
+		List<Emprestimo> lista = new ArrayList<Emprestimo>();
+		for(Emprestimo emp:emprestimos) {
+	    	if(emp.getEmprestado().equals(estado)) {
+	    		lista.add(emp);
+	    	}
+	    }
+		
+		return lista;
+	
+	}*/
 
 	@GetMapping("/testemenssagem")
 	public String retornaMenssagem() {

@@ -160,6 +160,7 @@ public class EmprestimoController {
 		return emprestimosabertos;
 	}
 	
+<<<<<<< HEAD
 	@GetMapping("/emprestimosabertoscliente")
 	public List<Emprestimo> emprestimosCliente(
 			@RequestParam(value="idCliente")Long idCliente,
@@ -184,6 +185,8 @@ public class EmprestimoController {
 		return emprestimos;
 	}
 	
+=======
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 	@Transactional
 	@GetMapping("/emprestimospordata")
 	public List<Emprestimo> emprestimosPorData(
@@ -198,6 +201,14 @@ public class EmprestimoController {
 		return repository.findEmprestimos(inicio, fim);
 	}
 	
+<<<<<<< HEAD
+=======
+	
+
+	
+	
+	
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 	@Transactional
 	@GetMapping("/emprestimo")
 	public List<Emprestimo> getEmprestimos(){
@@ -231,15 +242,23 @@ public class EmprestimoController {
 		LocalDate inicio = LocalDate.parse(datainicio);
 		LocalDate fim = LocalDate.parse(datafim);
 		
+<<<<<<< HEAD
 		
 		msg = "Emprestimo Realizado";
 		
 		
+=======
+		String msg = new String();
+		msg = "Emprestimo Realizado";
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 		if(listaEquipamento.isEmpty()) {
 			msg = "Lista de equipamentos vazia";
 			return ResponseEntity.ok(msg);
 		}
+<<<<<<< HEAD
 		
+=======
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 		Cliente cliente= clienterepository.findById(id).get();
 		//Equipamento equip = equipamentoRepository.findById(equipamentoId).get();
 		//Set<Equipamento> equipamento = new HashSet<Equipamento>();
@@ -259,6 +278,7 @@ public class EmprestimoController {
 	    }
 	    listaEquipamento = new HashSet<Equipamento>();
 	    return ResponseEntity.ok(msg);
+<<<<<<< HEAD
 	}
 	
 	@Transactional
@@ -284,6 +304,8 @@ public class EmprestimoController {
 	    
 	    listaEquipamento = new HashSet<Equipamento>();
 	    return ResponseEntity.ok(msg);
+=======
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 	}
 	
 	

@@ -54,9 +54,13 @@ public class Equipamento implements Serializable {
 		this.emprestado=false;
 	}
 	
+<<<<<<< HEAD
 	public Equipamento() {
 		
 	}
+=======
+	
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 	
 	public Long getId() {
 		return id;

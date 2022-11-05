@@ -8,6 +8,7 @@ import {useForm} from  'react-hook-form';
 import TelaLogin from "./componentes/login";
 import { AuthContext } from "./componentes/contexts/AuthContext";
 import { useContext, useEffect, useState } from "react";
+<<<<<<< HEAD
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
@@ -34,6 +35,26 @@ function App() {
         }
     </div>
     )
+=======
+function App() {
+
+  const auth = useContext(AuthContext);
+  
+  return (
+    <>
+    {!auth.user && <TelaLogin/>}
+      <Cabecalho />
+      <section id="menu">
+          <div className="barra-menu">
+          {auth.user && <Menu/>}
+          </div>
+        </section>
+      <main>
+        <Rota/>
+      </main>
+    </>
+  )
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 }
 
 export default App

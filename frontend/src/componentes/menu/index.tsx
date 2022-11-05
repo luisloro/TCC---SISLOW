@@ -1,7 +1,42 @@
+<<<<<<< HEAD
 import {Route,Routes,Link, useNavigate} from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { IoMdLogOut } from 'react-icons/io';
+=======
+import './styles.css';
+import {Route,Routes,Link, useNavigate} from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
+import { useContext, useEffect, useState } from "react";
+function Menu(){
+    const auth = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleLogout = async () =>{
+        await auth.signout();
+         navigate('/');
+    }
+    return(
+        
+            <div className="card">
+            <table>
+                <thead className="tabela-menu">
+                    <tr>
+                        <th><Link to={"/cadcli"}> Cadastro Pessoa Física</Link></th>
+                        <th><Link to={"/cadclijuridico"}> Cadastro Pessoa Jurídico</Link></th>
+                        <th><Link to={"/listacli"}>Lista de Clientes</Link></th>
+                        <th><Link to={"/cadequip"}>Cadastro Equipamento</Link></th>
+                        <th><Link to={"/listaemp"}>Lista de Emprestimos</Link></th>
+                        <th><Link to={"/listaempabertos"}>Lista de Emprestimos Abertos</Link></th>
+                        <th><Link to={"/emprestimosatrasados"}>Lista de Emprestimos Atrasados</Link></th>
+                        <th ><button onClick={handleLogout}> Sair </button></th>
+                        
+                    </tr>
+                </thead>
+            </table>
+            </div>
+        
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 
 function Menu(){
     const auth = useContext(AuthContext);
