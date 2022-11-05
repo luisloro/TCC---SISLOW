@@ -3369,3 +3369,9 @@
 2022-11-05 02:25:51,089 [Worker-1: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2022-11-05 02:25:51,089 [Worker-1: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
 2022-11-05 02:25:51,089 [Worker-1: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\BKP\Documentos\Unifae\4-Quarto Ano\1º Semestre\TCC\Aplicação WEB\aplicacao\backend\src\test\resources
+2022-11-05 02:28:44,566 [Worker-17: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.aplicacao:sislow:0.0.1-SNAPSHOT @ D:\BKP\Documentos\Unifae\4-Quarto Ano\1º Semestre\TCC\Aplicação WEB\aplicacao\backend\pom.xml.
+2022-11-05 02:28:45,134 [Worker-17: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-11-05 02:28:45,136 [Worker-17: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2022-11-05 02:28:45,136 [Worker-17: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2022-11-05 02:28:45,138 [Worker-17: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-11-05 02:28:45,138 [Worker-17: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\BKP\Documentos\Unifae\4-Quarto Ano\1º Semestre\TCC\Aplicação WEB\aplicacao\backend\src\test\resources

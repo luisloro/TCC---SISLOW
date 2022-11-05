@@ -5,7 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aplicacao.sislow.model.Equipamento;
-=======
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
->>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
+
 import com.aplicacao.sislow.model.EquipamentoExibicao;
 import com.aplicacao.sislow.repositry.EquipamentoExibicaoRepository;
 
@@ -37,7 +37,7 @@ public class EquipamentoExibicaoController {
 	public List<EquipamentoExibicao> getEquipamentos() {
 		return repository.findAll();
 	}
-<<<<<<< HEAD
+
 	
 	@Transactional
 	@PostMapping("/cadequipexib")
@@ -86,7 +86,6 @@ public class EquipamentoExibicaoController {
 	public void deletaEquipamento(@PathVariable Long id) {
 		repository.deleteById(id);
 	}
-=======
->>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
+
 
 }
