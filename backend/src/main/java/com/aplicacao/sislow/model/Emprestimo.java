@@ -2,6 +2,7 @@ package com.aplicacao.sislow.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -13,15 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
 @AllArgsConstructor
-@NoArgsConstructor
+
 public class Emprestimo implements Serializable {
 	private static final long serialVersion = 1l;
 	
@@ -31,7 +32,13 @@ public class Emprestimo implements Serializable {
 	private Float valor;
 	private LocalDate datainicio;
 	private LocalDate datafim;
-
+	private Boolean emprestado;
+	
+	@Transient
+	private String dataInicioFormatada;
+	@Transient
+	private String dataFimFormatada;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="cliente_id" )
 	private Cliente cliente;
@@ -43,7 +50,7 @@ public class Emprestimo implements Serializable {
 	private Set<Equipamento> equipamento;
 	
 	public Emprestimo() {
-		
+		equipamento = new HashSet<Equipamento>();
 	}
 
 	public Long getId() {
@@ -93,11 +100,32 @@ public class Emprestimo implements Serializable {
 	public void setDatafim(LocalDate datafim) {
 		this.datafim = datafim;
 	}
-	
-	
 
+	public Boolean getEmprestado() {
+		return emprestado;
+	}
 
-	
+	public void setEmprestado(Boolean emprestado) {
+		this.emprestado = emprestado;
+	}
+
+	@Transient
+	public String getDataInicioFormatada() {
+		return dataInicioFormatada;
+	}
+
+	public void setDataInicioFormatada(String dataInicioFormatada) {
+		this.dataInicioFormatada = dataInicioFormatada;
+	}
+
+	@Transient
+	public String getDataFimFormatada() {
+		return dataFimFormatada;
+	}
+
+	public void setDataFimFormatada(String dataFimFormatada) {
+		this.dataFimFormatada = dataFimFormatada;
+	}
 	
 
 }
