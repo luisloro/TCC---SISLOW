@@ -6,8 +6,10 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="Emprestimo"/>
+		<item key="selection" value=""/>
 		<list key="findhistory">
+			<item value="release"/>
+			<item value="realese"/>
 			<item value="emprestimo"/>
 			<item value="cliente"/>
 			<item value="/listatemp"/>
