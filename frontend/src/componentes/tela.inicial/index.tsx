@@ -1,3 +1,52 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+import { AuthContext } from "../contexts/AuthContext";
+import { useContext, useEffect, useState } from "react";
+import { Equipamento } from "../models/equipamentol";
+import axios from "axios";
+import { BASE_URL } from "../request";
+
+function TelaInicial(){
+    const auth = useContext(AuthContext);
+
+    const [equipamentos, setEquipamentos] = useState<[]>([]);
+    const [lista,setLista] = useState<Equipamento[]>([]);
+    useEffect(()=>{
+
+        axios.get(
+            `${BASE_URL}/equipexib`).then(response => {
+              
+                setLista(response.data);
+                
+            });
+
+           
+    
+},[])
+
+    return(
+        <div>
+            <h3>Olá, {auth.user && auth.user.name}</h3>
+            <div><br/></div>
+            {
+                auth.user && auth.user.type == "ADMIN" ? <div></div>: null
+            }
+
+            {
+                auth.user && auth.user.type == "CLIENTE" ? <div className="row">
+                <div className="col-md-4">
+                    <h4>Equipamentos:</h4>
+                    <table className="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Equipamento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+=======
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
 import {Route,Routes,Link, useNavigate} from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { useContext, useEffect, useState } from "react";
@@ -38,6 +87,10 @@ function TelaInicial(){
                         </tr>
                     </thead>
                     <tbody>
+<<<<<<< HEAD
+=======
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
                         {
                             lista.map(equipamento=>{
                                 return(
@@ -49,12 +102,26 @@ function TelaInicial(){
                                 )
                             })
                         }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+                        </tbody>
+                    </table>
+                </div>
+            </div>: null
+            }
+=======
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
                     
                     
                     </tbody>
                         
                 </table>
             </div>
+<<<<<<< HEAD
+=======
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
         </div>
     )
 }

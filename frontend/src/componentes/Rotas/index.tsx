@@ -18,6 +18,18 @@ import ListaEmprestimosCliente from "../lista.emprestimos.cliente";
 import ConsultaEmprestimos from "../consulta.emprestimos.cliente";
 import ConsultaEmprestimosCliente from "../consulta.emprestimos.cliente";
 import ContratoEmprestimo from "../contrato.emprestimo";
+<<<<<<< HEAD
+=======
+import CadClienteJurudico from "../cad.cliente/clientejuridico";
+<<<<<<< HEAD
+import CadEquipamentoExibicao from "../cad.equipamentoExibicao";
+import ListaEquipamentos from "../lista.equipamentos";
+import EditaEquipamento from "../edita.equipamento";
+import ListaEquipamentosExibicao from "../lista.equipamentos.exibicao";
+import EditaEquipamentoExibicao from "../edita.equipamento.exibicao";
+=======
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
 
 function Rota(){
 
@@ -41,8 +53,21 @@ function Rota(){
           <Route path="/login" element={<TelaLogin/>}></Route>
           <Route path="/consultaempcli" element={<ConsultaEmprestimosCliente/>}></Route>
           <Route path="/contratoemp/:id" element={<RequireAuth><ContratoEmprestimo/></RequireAuth>}></Route>
+<<<<<<< HEAD
           
           
+=======
+          <Route path="/cadclijuridico" element={<RequireAuth><CadClienteJurudico/></RequireAuth>}></Route>
+<<<<<<< HEAD
+          <Route path="/cadequipexibicao" element={<RequireAuth><CadEquipamentoExibicao/></RequireAuth>}></Route>
+          <Route path="/listaequip" element={<RequireAuth><ListaEquipamentos/></RequireAuth>}></Route>
+          <Route path="/editequip/:id" element={<RequireAuth><EditaEquipamento/></RequireAuth>}></Route>
+          <Route path="/listaequipexib" element={<RequireAuth><ListaEquipamentosExibicao/></RequireAuth>}></Route>
+          <Route path="/editequipexib/:id" element={<RequireAuth><EditaEquipamentoExibicao/></RequireAuth>}></Route>
+=======
+          
+>>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
         </Routes>
         
     )

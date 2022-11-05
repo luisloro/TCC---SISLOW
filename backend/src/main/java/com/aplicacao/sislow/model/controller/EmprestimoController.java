@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aplicacao.sislow.model.Cliente;
 import com.aplicacao.sislow.model.Emprestimo;
 import com.aplicacao.sislow.model.Equipamento;
+import com.aplicacao.sislow.model.dto.EmprestimoRequest;
 import com.aplicacao.sislow.repositry.ClienteRepository;
 import com.aplicacao.sislow.repositry.EmprestimoRepository;
 import com.aplicacao.sislow.repositry.EquipamentoRepository;
@@ -158,7 +159,35 @@ public class EmprestimoController {
 		emprestimosabertos = repository.findByEmprestado(inicio, fim,estado);
 		return emprestimosabertos;
 	}
+<<<<<<< HEAD
 	
+=======
+
+	@GetMapping("/emprestimosabertoscliente")
+	public List<Emprestimo> emprestimosCliente(
+			@RequestParam(value="idCliente")Long idCliente,
+			@RequestParam(value="datainicio")String datainicio,
+			@RequestParam(value="datafim")String datafim){
+		
+		LocalDate inicio = LocalDate.parse(datainicio);
+		LocalDate fim = LocalDate.parse(datafim);
+		
+		List<Emprestimo> emprestimos = repository.findEmprestimosAbertosByCliente(idCliente, inicio, fim);
+		return emprestimos;
+	}
+	
+	@GetMapping("/emprestimosatrasadoscliente")
+	public List<Emprestimo> emprestimoAtrasadoCliente(
+			@RequestParam(value="idCliente")Long idCliente,
+			@RequestParam(value="datafim")String datafim){
+		
+		LocalDate fim = LocalDate.parse(datafim);
+		
+		List<Emprestimo> emprestimos = repository.findEmprestimosAtrasadosByCliente(idCliente, fim);
+		return emprestimos;
+	}
+
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
 	@Transactional
 	@GetMapping("/emprestimospordata")
 	public List<Emprestimo> emprestimosPorData(
@@ -173,11 +202,14 @@ public class EmprestimoController {
 		return repository.findEmprestimos(inicio, fim);
 	}
 	
+<<<<<<< HEAD
 	
 
 	
 	
 	
+=======
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
 	@Transactional
 	@GetMapping("/emprestimo")
 	public List<Emprestimo> getEmprestimos(){
@@ -198,18 +230,37 @@ public class EmprestimoController {
 		@RequestParam(value="datainicio")String datainicio,
 		@RequestParam(value="datafim")String datafim
 			) {
+		String msg = new String();
+		
+		if(valoremprestimo.equalsIgnoreCase("")) {
+			msg = "Informe o valor do Empréstimo";
+			return ResponseEntity.ok(msg);
+		}
+		
 		Float valor = Float.parseFloat(valoremprestimo);
 		Long id = Long.parseLong(idCliente);
 		//Long  equipamentoId = Long.parseLong(idEquipamento);
 		LocalDate inicio = LocalDate.parse(datainicio);
 		LocalDate fim = LocalDate.parse(datafim);
+
+		msg = "Emprestimo Realizado";
+
 		
+<<<<<<< HEAD
 		String msg = new String();
 		msg = "Emprestimo Realizado";
+=======
+		msg = "Emprestimo Realizado";
+
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
 		if(listaEquipamento.isEmpty()) {
 			msg = "Lista de equipamentos vazia";
 			return ResponseEntity.ok(msg);
 		}
+<<<<<<< HEAD
+=======
+
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
 		Cliente cliente= clienterepository.findById(id).get();
 		//Equipamento equip = equipamentoRepository.findById(equipamentoId).get();
 		//Set<Equipamento> equipamento = new HashSet<Equipamento>();
@@ -218,7 +269,6 @@ public class EmprestimoController {
 		
 		novoemprestimo.setValor(valor);
 		novoemprestimo.setCliente(cliente);
-		//novoemprestimo.setEquipamento(equipamento);
 		novoemprestimo.setEquipamento(listaEquipamento);
 		novoemprestimo.setDatainicio(inicio);
 		novoemprestimo.setDatafim(fim);
@@ -230,6 +280,36 @@ public class EmprestimoController {
 	    }
 	    listaEquipamento = new HashSet<Equipamento>();
 	    return ResponseEntity.ok(msg);
+<<<<<<< HEAD
+=======
+
+	}
+	
+	@Transactional
+	@PostMapping("/cademprestimoV2")
+	public ResponseEntity<String> cadastraEmprestimoV2(@RequestBody EmprestimoRequest emprestimoRequest) {
+		String msg = new String();
+		msg = "Emprestimo Realizado";
+		
+		Emprestimo emprestimo = emprestimoRequest.toEmprestimo();
+		
+		Cliente cliente = clienterepository.findById(emprestimoRequest.getClienteId()).get();
+		emprestimo.setCliente(cliente);
+		
+	    for(Long idEquipamento : emprestimoRequest.getEquipamentos()) {
+	    	Equipamento equipamento = equipamentoRepository.findById(idEquipamento).get();
+	    	equipamento.setEmprestado(true);
+	    	equipamentoRepository.save(equipamento);
+	    	
+	    	emprestimo.getEquipamento().add(equipamento);
+	    }
+	    
+	    repository.save(emprestimo);
+	    
+	    listaEquipamento = new HashSet<Equipamento>();
+	    return ResponseEntity.ok(msg);
+
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
 	}
 	
 	

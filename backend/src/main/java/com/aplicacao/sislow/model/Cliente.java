@@ -17,7 +17,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+
 @AllArgsConstructor
 
 public class Cliente implements Serializable{

@@ -1,0 +1,18 @@
+package com.aplicacao.sislow.model;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Emprestimo implements Serializable {
+	private static final long serialVersion = 1l;
+
+}

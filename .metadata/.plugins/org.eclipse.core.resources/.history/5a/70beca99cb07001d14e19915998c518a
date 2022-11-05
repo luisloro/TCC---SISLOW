@@ -1,0 +1,16 @@
+package com.aplicacao.sislow.model.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.aplicacao.sislow.repositry.EmprestimoRepository;
+
+import lombok.AllArgsConstructor;
+
+@RestController
+@AllArgsConstructor
+public class EmprestimoController {
+
+	@Autowired
+	EmprestimoRepository repository;
+}

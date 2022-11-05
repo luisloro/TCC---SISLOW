@@ -1,0 +1,71 @@
+package com.aplicacao.sislow.model.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.aplicacao.sislow.model.Cliente;
+import com.aplicacao.sislow.model.Emprestimo;
+import com.aplicacao.sislow.repositry.ClienteRepository;
+
+import lombok.AllArgsConstructor;
+
+@RestController
+@AllArgsConstructor
+@Transactional
+public class ClienteController {
+	@Autowired
+	ClienteRepository repository;
+	
+	
+	@GetMapping("/cliente")
+	public List<Cliente> getClietes(){
+		return repository.findAll();
+	}
+	
+	
+	/*
+	@GetMapping("/cliente/{id}")
+	public Cliente clienteById(@PathVariable Long id) {
+		return repository.findById(id).get();
+	}*/
+	
+	@GetMapping("/cliente/{id}")
+	public ResponseEntity<Cliente> clienteById(@PathVariable Long id) {
+		Cliente cliente= repository.findById(id).get();
+		return ResponseEntity.ok(cliente);
+	}
+	
+	@Transactional
+	@GetMapping("/cliente/emprestimos/{id}")
+	public List<Emprestimo> emprestimosCliente(@PathVariable Long id) {
+		Cliente cliente= repository.findById(id).get();
+		List<Emprestimo> emprestimo = cliente.getEmprestimo();
+		return emprestimo;
+	}
+	@PostMapping("/cadcli")
+	public Cliente saveCliente(@RequestBody Cliente cliente) {
+		return repository.save(cliente);
+	}
+	
+	@DeleteMapping("/cliente/{id}")
+	public void deletaCliente(@PathVariable Long id) {
+		repository.deleteById(id);
+	}
+	
+	@Transactional
+	public void listaEmprestimosCliente() {
+		
+	}
+	
+}

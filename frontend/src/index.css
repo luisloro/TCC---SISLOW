@@ -9,16 +9,19 @@
 
 body,
 html {
-  background-color: #ADD8E6;
+  background-color: #EEE;
   color: #000;
 }
 
-.barra-menu {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
+.login-box{
+  max-width: 300px;
 }
 
-#menu {
-  padding: 40px 10px;
+.min-300{
+  min-width: 300px;;
+}
+
+.align-right{
+  float: right;
+  text-align: right;
 }

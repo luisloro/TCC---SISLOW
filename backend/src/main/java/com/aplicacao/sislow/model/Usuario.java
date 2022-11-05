@@ -15,7 +15,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @AllArgsConstructor
+<<<<<<< HEAD
 @NoArgsConstructor
+=======
+
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
 //@Table(name = "tb_usuarios")
 public class Usuario implements Serializable {
 	private static final long serialVersion = 1l;
@@ -28,9 +32,17 @@ public class Usuario implements Serializable {
 	private String name;
 	private String password;
 	
+<<<<<<< HEAD
 	public Usuario() {
 		
 	}
+=======
+
+	public Usuario() {
+		
+	}
+
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
 	
 public Usuario(String name, String password) {
 		this.name=name;

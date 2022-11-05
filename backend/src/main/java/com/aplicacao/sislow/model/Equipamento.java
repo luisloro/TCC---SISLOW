@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+
 public class Equipamento implements Serializable {
 	private static final long serialVersion = 1l;
 	
@@ -54,9 +54,17 @@ public class Equipamento implements Serializable {
 		this.emprestado=false;
 	}
 	
+<<<<<<< HEAD
 	public Equipamento() {
 		
 	}
+=======
+
+	public Equipamento() {
+		
+	}
+
+>>>>>>> c6d6c3fe5ab09525a359dfb14e2252b32c14c170
 	
 	public Long getId() {
 		return id;
