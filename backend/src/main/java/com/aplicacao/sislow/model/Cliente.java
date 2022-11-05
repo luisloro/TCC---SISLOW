@@ -17,9 +17,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+
 @AllArgsConstructor
-@NoArgsConstructor
+
 public class Cliente implements Serializable{
 	private static final long serialVersion = 1l;
 

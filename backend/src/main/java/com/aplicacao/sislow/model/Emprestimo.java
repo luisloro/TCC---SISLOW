@@ -38,11 +38,7 @@ public class Emprestimo implements Serializable {
 	private String dataInicioFormatada;
 	@Transient
 	private String dataFimFormatada;
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="cliente_id" )
 	private Cliente cliente;
@@ -52,14 +48,11 @@ public class Emprestimo implements Serializable {
 	joinColumns = @JoinColumn(name="emprestimo_fk"),
 	inverseJoinColumns = @JoinColumn(name = "equipamento_fk"))
 	private Set<Equipamento> equipamento;
-	
-<<<<<<< HEAD
+
 	public Emprestimo() {
 		equipamento = new HashSet<Equipamento>();
 	}
-=======
-	
->>>>>>> ee6cfc2ec7a18d0f1eb2ac32e7594751812b81e6
+
 
 	public Long getId() {
 		return id;
